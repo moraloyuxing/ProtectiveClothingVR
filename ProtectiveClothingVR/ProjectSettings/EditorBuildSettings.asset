@@ -11,4 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Lin/Scenes/Mission_PutOn.unity
     guid: 83ecfbeeb01a8464da636e2368c33e06
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 519bdeec22b97ce40ad0f76d39060950,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: afa5dd04b7a145540b75badbaa335825,
+      type: 2}
