@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/_Lin/Scenes/Mission_PutOn.unity
+- path: Assets/_Mick/URPinVR_Test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

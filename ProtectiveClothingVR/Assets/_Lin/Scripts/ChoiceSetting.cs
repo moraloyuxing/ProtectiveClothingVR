@@ -9,7 +9,7 @@ public class ChoiceSetting : MonoBehaviour{
     public bool FlagAns = false;
     public int FlagID = 0;
 
-    void Start(){
+    void Awake(){
         _outlineEffect = GetComponent<Outline>();
         _outlineEffect.enabled = false;
         _choiceManager = GameObject.Find("MissionManager").GetComponent<ChoiceManager>();
@@ -20,6 +20,7 @@ public class ChoiceSetting : MonoBehaviour{
     }
 
     public void SetOutlineEffect(bool _state) {
+        Debug.Log(gameObject.name);
         if (_state == true) _outlineEffect.enabled = true;
         else _outlineEffect.enabled = false;
     }

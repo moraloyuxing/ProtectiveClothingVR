@@ -605,17 +605,29 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:/Unity_Version/Unity2019/Unity_4.6/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.XR.Management">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Subsystem.Registration">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.OpenVR">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.OpenVR.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.OpenVR.Editor">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.OpenVR.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
@@ -644,6 +656,12 @@
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.Management.Editor">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -656,6 +674,12 @@
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
     </Reference>
@@ -665,35 +689,11 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.Management">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Subsystem.Registration">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.OpenVR">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.OpenVR.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.OpenVR.Editor">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.OpenVR.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.Management.Editor">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

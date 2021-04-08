@@ -29,9 +29,10 @@ public class UIManager : MonoBehaviour{
     //MenuPanel宣告---End
 
     //IconBar & SettingPanel宣告---Start
+    private GameObject SettingPanel;
     private MusicManager _musicmanager;
     public Text[] _volumeText;
-    private bool[] _showpanel =new bool[2];
+    private bool[] _showpanel =new bool[3]; //0為SettingPanel；1為StepPanel；2為StatPanel
     private bool[] _latestVolumeState;
     public Button[] _volumeModifyBtn;
     public Image[] _volumeIOBtn;
@@ -40,15 +41,24 @@ public class UIManager : MonoBehaviour{
     public Sprite[] _languageImg;
     //IconBar & SettingPanel宣告---End
 
+    //StepPanel宣告---Start
+    Animator _stepPanelAnim;
+    //StepPanel宣告---End
 
     void Awake(){
         BuildIndex = SceneManager.GetActiveScene().buildIndex;
-        if (BuildIndex == 0) {
+        if (BuildIndex == 0){
             HeaderText = GameObject.Find("StepTitle").GetComponent<Text>();
             Btn_Back = GameObject.Find("Button_BackSpace").GetComponent<Button>();
             Btn_Enter = GameObject.Find("Button_Enter").GetComponent<Button>();
         }
 
+        else if (BuildIndex == 1 || BuildIndex == 2) {
+            _stepPanelAnim = GameObject.Find("StepPanel").GetComponent<Animator>();
+        }
+
+        SettingPanel = GameObject.Find("SettingPanel");
+        SettingPanel.SetActive(false);
         _musicmanager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         _latestVolumeState = new bool[_volumeText.Length];
         for (int i = 0; i < _latestVolumeState.Length; i++) _latestVolumeState[i] = true;
@@ -126,7 +136,7 @@ public class UIManager : MonoBehaviour{
     }
     //Mode相關---End
 
-    //IconBar & SettingPanel宣告---Start
+    //SettingPanel宣告---Start
     void InitialSettingPanel() {
         for (int i = 0; i < _volumeText.Length; i++) {
             //_volumeText[i].text = ((int)(GlobalManager._volume[i]*100.0f)).ToString();  //音量text
@@ -167,16 +177,21 @@ public class UIManager : MonoBehaviour{
         }
     }
 
-    public void CallSettingPanel(int _type) {
-        if (_type < _showpanel.Length) {
-            for (int i = 0; i < _showpanel.Length; i++) {
-                //if(_showpanel[i] == true)已開啟的panel滑出
-                _showpanel[i] = false;
-            }           
-        }
-        _showpanel[_type] = true;
-        _musicmanager.CallSoundEffect();
+    public void SettingPanelIO(){
+        _showpanel[0] = !_showpanel[0];
+        if (_showpanel[0] == true) SettingPanel.SetActive(true);
+        else SettingPanel.SetActive(false);
     }
+    //public void CallSettingPanel(int _type) {
+    //    if (_type < _showpanel.Length) {
+    //        for (int i = 0; i < _showpanel.Length; i++) {
+    //            //if(_showpanel[i] == true)已開啟的panel滑出
+    //            _showpanel[i] = false;
+    //        }           
+    //    }
+    //    _showpanel[_type] = true;
+    //    _musicmanager.CallSoundEffect();
+    //}
 
     public void VolumeModify(int _type) {
         if (_type < 3){
@@ -246,7 +261,14 @@ public class UIManager : MonoBehaviour{
         Debug.Log("退出遊戲");
     }
 
-    //IconBar & SettingPanel宣告---End
+    //SettingPanel宣告---End
 
+    //StepPanel宣告---Start
+    public void StepPanelIO(){
+        _showpanel[1] = !_showpanel[1];
+        if (_showpanel[1] == true) _stepPanelAnim.Play("StepPanel_SlideIn");
+        else _stepPanelAnim.Play("StepPanel_SlideOut");
+    }
+    //StepPanel宣告---End
 
 }
