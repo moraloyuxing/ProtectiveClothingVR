@@ -19,8 +19,11 @@ public class FlagManager : MonoBehaviour{
     float _voiceTimer;
     string VoicePath;
     Button _btnToCall;
+    StepManager _stepManager;
+    bool FirstFlag = true;
 
     void Awake(){
+        _stepManager = GetComponent<StepManager>();
         BuildIndex = SceneManager.GetActiveScene().buildIndex;
         if (BuildIndex == 1){
             VoicePath = Application.streamingAssetsPath + "/Voice_PutOn";
@@ -44,14 +47,21 @@ public class FlagManager : MonoBehaviour{
     }
 
     void Update(){
-        if (_voiceHintAudio.isPlaying == true){
+        if (Time.time > 3.0f && FirstFlag == true) {
+            FirstFlag = false;
+            _stepManager.CallVoiceHint();
+        }
+
+
+        if ( _voiceTimer >0.0f){
             _voiceTimer = _voiceTimer - Time.deltaTime;
-            Debug.Log("???");
+
             if (_voiceTimer <= 0.0f){
                 _voiceHintPanel.Play("HintPanel_FadeOut"); //語音播畢以後呼叫文字面板的動畫淡出
                 _btnToCall.interactable = true; //最後將語音提示的icon重新enable
             }
         }
+
     }
 
     void ReadCSVFile(string filePath){
@@ -92,9 +102,9 @@ public class FlagManager : MonoBehaviour{
     }
 
     public void HintActivate(int _flagID, Button _btn){
-        StartCoroutine(PlayHintClip(_flagID));//語音提示的檔案path需分流，檔名以任務代碼命名
         _voiceHintPanel.Play("HintPanel_FadeIn");   //呼叫上方文字面板的動畫
         _voiceHintText.text = GetFlagContent(_flagID);  //替換文字內容(任務代碼當key抓出dic的string置入)
         _btnToCall = _btn;
+        StartCoroutine(PlayHintClip(_flagID));//語音提示的檔案path需分流，檔名以任務代碼命名
     }
 }

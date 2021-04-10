@@ -51,7 +51,7 @@ public class StepManager : MonoBehaviour {
     void Start(){
         CurrentMissionID = CurrentStep * 10 + FlagProgress;
         _choicemanager.SetGlowChoice(CurrentMissionID);
-        CallVoiceHint();
+        //CallVoiceHint();
     }
 
     public void FlagCorrect() {
