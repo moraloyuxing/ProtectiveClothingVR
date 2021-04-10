@@ -20,7 +20,6 @@ public class ChoiceSetting : MonoBehaviour{
     }
 
     public void SetOutlineEffect(bool _state) {
-        Debug.Log(gameObject.name);
         if (_state == true) _outlineEffect.enabled = true;
         else _outlineEffect.enabled = false;
     }
