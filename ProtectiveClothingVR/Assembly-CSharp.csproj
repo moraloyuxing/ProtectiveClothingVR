@@ -71,6 +71,7 @@
     <Compile Include="Assets\_Lin\Scripts\MusicManager.cs" />
     <Compile Include="Assets\_Lin\Scripts\StepManager.cs" />
     <Compile Include="Assets\_Lin\Scripts\TestManager.cs" />
+    <Compile Include="Assets\_Lin\Scripts\UIChoiceSetting.cs" />
     <Compile Include="Assets\_Lin\Scripts\UIManager.cs" />
     <None Include="Assets\Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\Assets\QuickOutline\Readme.txt" />
