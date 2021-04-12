@@ -68,6 +68,7 @@
     <Compile Include="Assets\_Lin\Scripts\ChoiceSetting.cs" />
     <Compile Include="Assets\_Lin\Scripts\FlagManager.cs" />
     <Compile Include="Assets\_Lin\Scripts\GlobalManager.cs" />
+    <Compile Include="Assets\_Lin\Scripts\MenuManager.cs" />
     <Compile Include="Assets\_Lin\Scripts\MusicManager.cs" />
     <Compile Include="Assets\_Lin\Scripts\StepManager.cs" />
     <Compile Include="Assets\_Lin\Scripts\TestManager.cs" />

@@ -6,28 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour{
 
-    int BuildIndex;
-
-    //MenuPanel宣告---Start
-    private Text HeaderText;
-    private string[] _title = new string[3] {
-        "輸入用戶代碼",
-        "選擇情境",
-        "選擇模式"
-    };
-
-    public GameObject[] StepState = new GameObject[3];
-
-    //Step1_UserID相關
-    public Sprite[] UserIDCount = new Sprite[10];
-    public Image[] UserIDArea;
-    private Button Btn_Back;
-    private Button Btn_Enter;
-    private string UserIDcheck;
-    int OnType = -1;
-    //int QualifyRange; ->UserID是否存在(目前暫定為四位數，介於0000至9999);
-    //MenuPanel宣告---End
-
     //IconBar & 下轄面板相關宣告---Start
     public Button[] _Iconbar = new Button[3];   //0為SettingPanel；1為StepPanel；2為StatPanel
 
@@ -57,22 +35,12 @@ public class UIManager : MonoBehaviour{
     //StatPanel宣告---End
     //IconBar & 下轄面板相關宣告---End
     void Awake(){
-        BuildIndex = SceneManager.GetActiveScene().buildIndex;
-        if (BuildIndex == 0){
-            HeaderText = GameObject.Find("StepTitle").GetComponent<Text>();
-            Btn_Back = GameObject.Find("Button_BackSpace").GetComponent<Button>();
-            Btn_Enter = GameObject.Find("Button_Enter").GetComponent<Button>();
-        }
-
-        else if (BuildIndex == 1 || BuildIndex == 2) {
-            _stepPanelAnim = GameObject.Find("StepPanel").GetComponent<Animator>();
-            StatPanel = GameObject.Find("StatPanel");
-            Stat_UserID = GameObject.Find("Value_UserID").GetComponent<Text>();
-            Stat_Date = GameObject.Find("Value_Date").GetComponent<Text>();
-            Stat_Timer = GameObject.Find("Value_Timer").GetComponent<Text>();
-            StatPanel.SetActive(false);
-        }
-
+        _stepPanelAnim = GameObject.Find("StepPanel").GetComponent<Animator>();
+        StatPanel = GameObject.Find("StatPanel");
+        Stat_UserID = GameObject.Find("Value_UserID").GetComponent<Text>();
+        Stat_Date = GameObject.Find("Value_Date").GetComponent<Text>();
+        Stat_Timer = GameObject.Find("Value_Timer").GetComponent<Text>();
+        StatPanel.SetActive(false);
         SettingPanel = GameObject.Find("SettingPanel");
         SettingPanel.SetActive(false);
         _musicmanager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
@@ -82,10 +50,8 @@ public class UIManager : MonoBehaviour{
 
     void Start(){
         InitialSettingPanel();//加一個setting狀態(從globalmanager存取)
-        if (BuildIndex == 1 || BuildIndex == 2) {
-            InitialStatPanel();
-            InvokeRepeating("Timer", 1.0f, 1.0f);
-        }
+        InitialStatPanel();
+        InvokeRepeating("Timer", 1.0f, 1.0f);
     }
 
     void Timer() {
@@ -103,76 +69,6 @@ public class UIManager : MonoBehaviour{
         Stat_Timer.text = _timer[2] + ":" + _timer[1] + ":" + _timer[0];
     }
 
-    //UserID相關---Start
-    //輸入數字(keyboard)
-    public void EnterCount(int _count) {
-        if (OnType < UserIDArea.Length) {
-            OnType++;
-            UserIDArea[OnType].enabled = true;
-            UserIDArea[OnType].sprite = UserIDCount[_count];
-            UserIDcheck = UserIDcheck + _count.ToString();
-            Btn_Back.interactable = true;
-            if (OnType == UserIDArea.Length-1) Btn_Enter.interactable = true;
-        }
-    }
-
-    //倒退
-    public void UserID_BackSpace() {
-        UserIDArea[OnType].sprite = null;
-        UserIDArea[OnType].enabled = false;
-        OnType--;
-        UserIDcheck = UserIDcheck.Remove(UserIDcheck.Length - 1);
-        Btn_Enter.interactable = false;
-        if (OnType<0) Btn_Back.interactable = false;
-    }
-
-    //完成並偵測是否有此ID(先以Debug顯示結果)
-    public void CheckUserID() {
-        int RangeCheck = int.Parse(UserIDcheck);
-        //if (RangeCheck > 0 && RangeCheck < 9999) Debug.Log("登入成功");
-        if (RangeCheck > 0 && RangeCheck < 6999) {
-            Debug.Log("登入成功");//此行用以測試登入失敗的場合
-            GlobalManager.UserID = UserIDcheck;
-            StepState[0].SetActive(false);
-            StepState[1].SetActive(true);
-            HeaderText.text = _title[1];
-        }
-        else Debug.Log("登入失敗，請確認用戶代碼是否正確");
-    }
-    //UserID相關---End
-
-    //Menu相關---Start
-    public void MenuSelect(int _menu) {
-        if (_menu == 0) Debug.Log("進入操作教學(呼叫影片或跳轉場景)");
-        else {
-            GlobalManager.MissionType = _menu;// _menu ==1為穿戴；_menu ==2為脫除，預計用Global存(方便後續輸出csv參照)
-            StepState[1].SetActive(false);
-            StepState[2].SetActive(true);
-            HeaderText.text = _title[2];
-        }
-    }
-    //Menu相關---End
-
-    //Mode相關---Start
-    public void ModeSelect(int _mode) {
-        //Scenemanager載入_mode的場景
-        if (GlobalManager.MissionType == 1){
-            if (_mode==0) Debug.Log("進入穿戴防護衣的練習模式");
-            else if (_mode==1) Debug.Log("進入穿戴防護衣的測驗模式");
-        }
-
-        else if (GlobalManager.MissionType == 2) {
-            if (_mode == 0) Debug.Log("進入脫除防護衣的練習模式");
-            else if (_mode == 1) Debug.Log("進入脫除防護衣的測驗模式");
-        }
-        StepState[2].SetActive(false);
-        //StepState[0].SetActive(true);
-        //HeaderText.text = _title[0];
-        GlobalManager.Date = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-        SceneManager.LoadSceneAsync(1);
-    }
-    //Mode相關---End
-
     //IconBar宣告---Start
     public void IO_SettingPanel(){
         _showpanel[0] = !_showpanel[0];
@@ -188,14 +84,8 @@ public class UIManager : MonoBehaviour{
 
     public void IO_StepPanel(){
         _showpanel[1] = !_showpanel[1];
-        if (_showpanel[1] == true){
-            _stepPanelAnim.Play("StepPanel_SlideIn");
-            //for (int i = 0; i < _Iconbar.Length; i++) if (i != 1) _Iconbar[i].interactable = false;
-        }
-        else{
-            _stepPanelAnim.Play("StepPanel_SlideOut");
-            //for (int i = 0; i < _Iconbar.Length; i++)_Iconbar[i].interactable = true;
-        }
+        if (_showpanel[1] == true){_stepPanelAnim.Play("StepPanel_SlideIn");}
+        else{_stepPanelAnim.Play("StepPanel_SlideOut");}
     }
 
     public void IO_StatPanel(){
@@ -315,11 +205,6 @@ public class UIManager : MonoBehaviour{
         SceneManager.LoadSceneAsync(0);
         //叫出二次確認的panel
     }
-
-    public void QuitVR() {
-        Debug.Log("退出遊戲");
-    }
-
     //SettingPanel宣告---End
 
     //StatPanel宣告---Start

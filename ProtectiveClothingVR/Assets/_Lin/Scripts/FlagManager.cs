@@ -47,7 +47,7 @@ public class FlagManager : MonoBehaviour{
     }
 
     void Update(){
-        if (Time.time > 3.0f && FirstFlag == true) {
+        if (Time.time > 7.5f && FirstFlag == true) {
             FirstFlag = false;
             _stepManager.CallVoiceHint();
         }
