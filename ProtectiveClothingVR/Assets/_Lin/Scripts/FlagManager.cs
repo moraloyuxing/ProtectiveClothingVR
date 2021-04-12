@@ -36,7 +36,7 @@ public class FlagManager : MonoBehaviour{
         ReadCSVFile(ReadPath_CSV);
         _voiceHintPanel = GameObject.Find("VoiceHintPanel").GetComponent<Animator>();
         _voiceHintText = GameObject.Find("VoiceHintText").GetComponent<Text>();
-        _voiceHintAudio = GetComponent<AudioSource>();
+        _voiceHintAudio = GameObject.Find("VoiceHint").GetComponent<AudioSource>();
 
         DirectoryInfo dir = new DirectoryInfo(VoicePath);
         FileInfo[] info = dir.GetFiles("*wav");

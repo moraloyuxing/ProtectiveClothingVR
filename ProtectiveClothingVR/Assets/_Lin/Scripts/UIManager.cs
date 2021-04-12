@@ -50,6 +50,10 @@ public class UIManager : MonoBehaviour{
 
     //StatPanel宣告---Start
     private GameObject StatPanel;
+    Text Stat_UserID;
+    Text Stat_Date;
+    Text Stat_Timer;
+    int[] _timer = new int[3] { 0,0,0};  //0為秒；1為分；2為時
     //StatPanel宣告---End
     //IconBar & 下轄面板相關宣告---End
     void Awake(){
@@ -63,6 +67,9 @@ public class UIManager : MonoBehaviour{
         else if (BuildIndex == 1 || BuildIndex == 2) {
             _stepPanelAnim = GameObject.Find("StepPanel").GetComponent<Animator>();
             StatPanel = GameObject.Find("StatPanel");
+            Stat_UserID = GameObject.Find("Value_UserID").GetComponent<Text>();
+            Stat_Date = GameObject.Find("Value_Date").GetComponent<Text>();
+            Stat_Timer = GameObject.Find("Value_Timer").GetComponent<Text>();
             StatPanel.SetActive(false);
         }
 
@@ -75,6 +82,25 @@ public class UIManager : MonoBehaviour{
 
     void Start(){
         InitialSettingPanel();//加一個setting狀態(從globalmanager存取)
+        if (BuildIndex == 1 || BuildIndex == 2) {
+            InitialStatPanel();
+            InvokeRepeating("Timer", 1.0f, 1.0f);
+        }
+    }
+
+    void Timer() {
+        _timer[0]++;
+        if (_timer[0] == 60) {
+            _timer[0] = 0;
+            _timer[1]++;
+        }
+
+        if (_timer[1] == 60) {
+            _timer[1] = 0;
+            _timer[2]++;
+        }
+
+        Stat_Timer.text = _timer[2] + ":" + _timer[1] + ":" + _timer[0];
     }
 
     //UserID相關---Start
@@ -106,6 +132,7 @@ public class UIManager : MonoBehaviour{
         //if (RangeCheck > 0 && RangeCheck < 9999) Debug.Log("登入成功");
         if (RangeCheck > 0 && RangeCheck < 6999) {
             Debug.Log("登入成功");//此行用以測試登入失敗的場合
+            GlobalManager.UserID = UserIDcheck;
             StepState[0].SetActive(false);
             StepState[1].SetActive(true);
             HeaderText.text = _title[1];
@@ -139,8 +166,9 @@ public class UIManager : MonoBehaviour{
             else if (_mode == 1) Debug.Log("進入脫除防護衣的測驗模式");
         }
         StepState[2].SetActive(false);
-        StepState[0].SetActive(true);
-        HeaderText.text = _title[0];
+        //StepState[0].SetActive(true);
+        //HeaderText.text = _title[0];
+        GlobalManager.Date = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         SceneManager.LoadSceneAsync(1);
     }
     //Mode相關---End
@@ -182,7 +210,6 @@ public class UIManager : MonoBehaviour{
         }
     }
     //IconBar宣告---End
-
 
     //SettingPanel宣告---Start
     void InitialSettingPanel() {
@@ -229,17 +256,17 @@ public class UIManager : MonoBehaviour{
         if (_type < 3){
             GlobalManager._vol[_type] -=1;
             _volumeText[_type].text = GlobalManager._vol[_type].ToString();
-            //_volumeText[_type].text = _musicmanager.GetVolume(_type).ToString();
+            if(GlobalManager._vol[_type]==0) _volumeModifyBtn[_type].interactable = false;
+            if (GlobalManager._vol[_type] < 100) _volumeModifyBtn[_type + 3].interactable = true;
             _musicmanager.ModifyVolume(_type, GlobalManager._vol[_type]);
-            //_musicmanager.ModifyVolume(_type, -0.01f);
             _musicmanager.CallSoundEffect();
         }
         else {
             GlobalManager._vol[_type-3]+=1;
             _volumeText[_type-3].text = GlobalManager._vol[_type-3].ToString();
-            //_volumeText[_type-3].text = _musicmanager.GetVolume(_type-3).ToString();
+            if (GlobalManager._vol[_type-3] == 100) _volumeModifyBtn[_type].interactable = false;
+            if (GlobalManager._vol[_type-3] > 0) _volumeModifyBtn[_type - 3].interactable = true;
             _musicmanager.ModifyVolume(_type-3, GlobalManager._vol[_type-3]);
-            //_musicmanager.ModifyVolume(_type-3, 0.01f);
             _musicmanager.CallSoundEffect();
         }
     }
@@ -261,8 +288,8 @@ public class UIManager : MonoBehaviour{
 
             //調整icon呈現等
             _volumeIOBtn[_type].sprite = _volumeImg[0];
-            _volumeModifyBtn[_type].interactable = true;
-            _volumeModifyBtn[_type + 3].interactable = true;
+            if(GlobalManager._vol[_type]>0)_volumeModifyBtn[_type].interactable = true;
+            if(GlobalManager._vol[_type]<100)_volumeModifyBtn[_type + 3].interactable = true;
             _volumeText[_type].color = Color.white;
             _musicmanager.CallSoundEffect();
         }
@@ -294,4 +321,13 @@ public class UIManager : MonoBehaviour{
     }
 
     //SettingPanel宣告---End
+
+    //StatPanel宣告---Start
+    void InitialStatPanel() {
+        Stat_UserID.text = GlobalManager.UserID;
+        Stat_Date.text = GlobalManager.Date;
+        //Stat_Timer.text = "00:00:00";
+    }
+    //StatPanel宣告---End
+
 }
