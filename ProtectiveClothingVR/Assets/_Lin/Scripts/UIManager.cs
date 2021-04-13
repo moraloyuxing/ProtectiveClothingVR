@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour{
     //StatPanel宣告---Start
     private GameObject StatPanel;
     Text Stat_UserID;
+    Text Stat_MissionType;
     Text Stat_Date;
     Text Stat_Timer;
     int[] _timer = new int[3] { 0,0,0};  //0為秒；1為分；2為時
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour{
         _stepPanelAnim = GameObject.Find("StepPanel").GetComponent<Animator>();
         StatPanel = GameObject.Find("StatPanel");
         Stat_UserID = GameObject.Find("Value_UserID").GetComponent<Text>();
+        Stat_MissionType = GameObject.Find("Value_MissionType").GetComponent<Text>();
         Stat_Date = GameObject.Find("Value_Date").GetComponent<Text>();
         Stat_Timer = GameObject.Find("Value_Timer").GetComponent<Text>();
         StatPanel.SetActive(false);
@@ -202,6 +204,9 @@ public class UIManager : MonoBehaviour{
 
     public void QuitMission() {
         Debug.Log("退出任務");
+        GlobalManager.UserID = "";
+        GlobalManager.Date = "";
+        GlobalManager.MissionType = 0;
         SceneManager.LoadSceneAsync(0);
         //叫出二次確認的panel
     }
@@ -211,8 +216,27 @@ public class UIManager : MonoBehaviour{
     void InitialStatPanel() {
         Stat_UserID.text = GlobalManager.UserID;
         Stat_Date.text = GlobalManager.Date;
-        //Stat_Timer.text = "00:00:00";
+        if (GlobalManager.MissionType == 1)Stat_MissionType.text = "穿戴防護衣";
+        else Stat_MissionType.text = "脫除防護衣";
     }
     //StatPanel宣告---End
+
+    //輸出資料相關---Start
+    public string GetUserID() {
+        return Stat_UserID.text;
+    }
+
+    public string GetMissionType() {
+        return Stat_MissionType.text;
+    }
+
+    public string GetDate(){
+        return Stat_Date.text;
+    }
+
+    public string GetTimer(){
+        return Stat_Timer.text;
+    }
+    //輸出資料相關---End
 
 }

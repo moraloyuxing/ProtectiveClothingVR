@@ -24,9 +24,12 @@ public class StepManager : MonoBehaviour {
     int[] _flagCount;
     int FlagProgress = 0;   //檢核點
     int FlagMistake = 0;
+    int TotalMistake = 0;
+    int StepMistake = 0;
     ChoiceManager _choicemanager;
     FlagManager _flagManager;
     int CurrentMissionID = 0;
+    string WrongContent = "";
 
     void Awake() {
         _choicemanager = GetComponent<ChoiceManager>();
@@ -84,7 +87,17 @@ public class StepManager : MonoBehaviour {
 
     public void FlagWrong() {
         FlagMistake++;
+        TotalMistake++;
         _allSteps._stepData[CurrentStep]._stepMistake.text = FlagMistake.ToString();
+
+        //抓出此步驟的內容
+        if (TotalMistake == 1) WrongContent = _flagManager.GetFlagContent(CurrentMissionID);
+        else WrongContent = WrongContent + " / " + _flagManager.GetFlagContent(CurrentMissionID);
+    }
+
+    public void StepWrong() {
+        StepMistake++;
+        Debug.Log("步驟錯誤(此訊息來自)StepManager");
     }
 
     public void CallVoiceHint(){
@@ -92,4 +105,21 @@ public class StepManager : MonoBehaviour {
         _ActivateBtn.interactable = false;   //當前語音提示按鈕disable
         _flagManager.HintActivate(CurrentMissionID, _ActivateBtn);
     }
+
+    public int GetTotalMistake() {
+        return TotalMistake;
+    }
+
+    public string GetWrongContent() {
+        return WrongContent;
+    }
+
+    public int GetStepMistake() {
+        return StepMistake;
+    }
+
+    public int GetTotalStep() {
+        return _allSteps._stepData.Count;
+    }
+
 }

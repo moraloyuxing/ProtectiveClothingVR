@@ -94,10 +94,10 @@ public class MenuManager : MonoBehaviour{
     //UserID相關---End
 
     //Menu相關---Start
-    public void MenuSelect(int _menu){
-        if (_menu == 0) Debug.Log("進入操作教學(呼叫影片或跳轉場景)");
+    public void MissionSelect(int _mission){
+        if (_mission == 0) Debug.Log("進入操作教學(呼叫影片或跳轉場景)");
         else{
-            GlobalManager.MissionType = _menu;// _menu ==1為穿戴；_menu ==2為脫除，預計用Global存(方便後續輸出csv參照)
+            GlobalManager.MissionType = _mission;// _menu ==1為穿戴；_menu ==2為脫除，預計用Global存(方便後續輸出csv參照)
             StepState[1].SetActive(false);
             StepState[2].SetActive(true);
             HeaderText.text = _title[2];

@@ -8,14 +8,29 @@ public static class CSVManager {
     private static string reportDirectoryName = "Report";
     private static string[] ModeFileName = new string[2] { "PracticeMode.csv", "QuizMode.csv" };//0為練習模式；1為測驗模式
     private static string CellSeparator = ",";
-    private static string[] reportHeaders = new string[7]{
+    private static string[] reportHeaders_Practice = new string[9]{
         "用戶代碼",
+        "情境類型",
         "受測日期與時間",
         "總測驗時間",
         "檢核點數量",
         "答對數",
         "答錯數",
-        "檢核點正確率"
+        "檢核點正確率",
+        "錯誤的檢核點名稱"
+    };
+
+    private static string[] reportHeaders_Quiz = new string[10]{
+        "用戶代碼",
+        "情境類型",
+        "受測日期與時間",
+        "總測驗時間",
+        "檢核點數量",
+        "答對數",
+        "答錯數",
+        "檢核點正確率",
+        "操作步驟",
+        "操作步驟正確率"
     };
 
     private static Queue<string> TempOldReport = new Queue<string>();
@@ -29,7 +44,12 @@ public static class CSVManager {
         //確認標頭擋是否存在
         using (StreamReader sr = new StreamReader(GetFilePath(_mode), true)){
             string line = sr.ReadLine();
-            if (line != "用戶代碼,受測日期與時間,總測驗時間,檢核點數量,答對數,答錯數,檢核點正確率" || line == null) {NeedModify = true;}
+            if (CurrentMode == 1){
+                if (line != "用戶代碼,情境類型,受測日期與時間,總測驗時間,檢核點數量,答對數,答錯數,檢核點正確率,錯誤的檢核點名稱" || line == null) { NeedModify = true; }
+            }
+            else if (CurrentMode == 2) {
+                if (line != "用戶代碼,情境類型,受測日期與時間,總測驗時間,檢核點數量,答對數,答錯數,檢核點正確率,操作步驟,操作步驟正確率" || line == null) { NeedModify = true; }
+            }
         }
 
         if (NeedModify) {
@@ -50,13 +70,21 @@ public static class CSVManager {
             using (StreamWriter sw = new StreamWriter(GetFilePath(_mode), true, Encoding.UTF8)){
                 //sw.WriteLine("用戶代碼,受測日期與時間,總測驗時間,檢核點數量,答對數,答錯數,檢核點正確率");
                 string finalString = "";
-                for (int i = 0; i < reportHeaders.Length; i++)
-                {
-                    if (finalString != "")
-                    {
-                        finalString += CellSeparator;
+                if (CurrentMode == 1) {
+                    for (int i = 0; i < reportHeaders_Practice.Length; i++){
+                        if (finalString != ""){
+                            finalString += CellSeparator;
+                        }
+                        finalString += reportHeaders_Practice[i];
                     }
-                    finalString += reportHeaders[i];
+                }
+                else if (CurrentMode == 2) {
+                    for (int i = 0; i < reportHeaders_Quiz.Length; i++){
+                        if (finalString != ""){
+                            finalString += CellSeparator;
+                        }
+                        finalString += reportHeaders_Quiz[i];
+                    }
                 }
                 sw.WriteLine(finalString);
                 while (TempOldReport.Count > 0) { sw.WriteLine(TempOldReport.Dequeue()); }
@@ -80,11 +108,21 @@ public static class CSVManager {
     public static void CreateReport(int _mode) {
         using (StreamWriter sw = new StreamWriter(GetFilePath(_mode), true, Encoding.UTF8)) {
             string finalString = "";
-            for (int i = 0; i < reportHeaders.Length; i++) {
-                if (finalString != "") {
-                    finalString += CellSeparator;
+            if (CurrentMode == 1) {
+                for (int i = 0; i < reportHeaders_Practice.Length; i++){
+                    if (finalString != ""){
+                        finalString += CellSeparator;
+                    }
+                    finalString += reportHeaders_Practice[i];
                 }
-                finalString += reportHeaders[i];
+            }
+            else if (CurrentMode == 2) {
+                for (int i = 0; i < reportHeaders_Quiz.Length; i++){
+                    if (finalString != ""){
+                        finalString += CellSeparator;
+                    }
+                    finalString += reportHeaders_Quiz[i];
+                }
             }
             sw.WriteLine(finalString);
         }

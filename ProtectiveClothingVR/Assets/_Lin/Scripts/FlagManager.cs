@@ -81,7 +81,7 @@ public class FlagManager : MonoBehaviour{
         }
     }
 
-    string GetFlagContent(int _flagID){
+    public string GetFlagContent(int _flagID){
         if ((FlagDic.ContainsKey(_flagID) == true)) return FlagDic[_flagID];
         else return "Error!";
     }

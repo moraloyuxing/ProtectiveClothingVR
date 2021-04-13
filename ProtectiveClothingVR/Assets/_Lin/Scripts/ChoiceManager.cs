@@ -195,12 +195,16 @@ public class ChoiceManager : MonoBehaviour{
     }
 
     public void CheckMatchChoice(int _choiceID,bool _choiceAns) {
-
         if (_choiceID == CurrentID){
             if (_choiceAns) { _stepManager.FlagCorrect(); } //步驟內的選項正確
             else { _stepManager.FlagWrong(); }  //步驟內的選項錯誤
         }
-        else {Debug.Log("步驟錯誤另計");}
+        else { _stepManager.StepWrong();}
+    }
+
+    public int GetFlagCount() {
+        int total = _choices._flagchoice_base.Count + _choices._flagchoice_image.Count + _choices._flagchoice_video.Count + _choices._flagchoice_OX.Count;
+        return total;
     }
 
 
