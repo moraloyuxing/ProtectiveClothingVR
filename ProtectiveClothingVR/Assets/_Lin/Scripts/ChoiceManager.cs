@@ -60,14 +60,43 @@ public class ChoiceManager : MonoBehaviour{
     GameObject VideoChoicePanel;
     GameObject OXChoicePanel;
 
+    public RectTransform[] ImgPos = new RectTransform[3];
+    public RectTransform[] VpPos = new RectTransform[2];
+    public RectTransform[] OXPos = new RectTransform[2];
+    Vector2[] Img_baseV2 = new Vector2[3];
+    Vector2[] Vp_OX_baseV2 = new Vector2[2];
+    public Vector2[] Img_baseModV2 = new Vector2[3];
+    public Vector2[] Vp_OX_baseModV2 = new Vector2[2];
+
+    public Vector2[] Img_ranV2 = new Vector2[3];
+    public Vector2[] Vp_OX_ranV2 = new Vector2[2];
+    public Vector2[] Img_ranModV2 = new Vector2[3];
+    public Vector2[] Vp_OX_ranModV2 = new Vector2[2];
+    bool StepPanelIn = false;
+    bool CheckOnce = false;
+
     void Start(){
         _stepManager = GetComponent<StepManager>();
         ImageChoicePanel = GameObject.Find("ImageChoicePanel");
         VideoChoicePanel = GameObject.Find("VideoChoicePanel");
         OXChoicePanel = GameObject.Find("OXChoicePanel");
+        for (int i = 0; i < 3; i++) {
+            if (i < 2) {Vp_OX_baseV2[i] = VpPos[i].anchoredPosition;}
+            Img_baseV2[i] = ImgPos[i].anchoredPosition;
+        }
         ImageChoicePanel.SetActive(false);
         VideoChoicePanel.SetActive(false);
         OXChoicePanel.SetActive(false);
+    }
+
+    void Update(){
+        if (CheckOnce == true)
+        {
+            if (ImageChoicePanel.activeInHierarchy == true) { ImgChoiceState(StepPanelIn); }
+            else if (VideoChoicePanel.activeInHierarchy == true) { VpChoiceState(StepPanelIn); }
+            else if (OXChoicePanel.activeInHierarchy == true) { OXChoiceState(StepPanelIn); }
+        }
+        else Debug.Log("wait");
     }
 
     public void SetGlowChoice(int _ID){
@@ -139,6 +168,7 @@ public class ChoiceManager : MonoBehaviour{
         for (int i = 0; i < _choices._flagchoice_image.Count && AlreadyGet == false; i++){
             if (_choices._flagchoice_image[i].FlagID == CurrentID){
                 ImageChoicePanel.SetActive(true);//開啟面板
+                CheckOnce = false;
                 int Count = 0;
                 foreach (Image _obj in _option_img){
                     _UIcs = _obj.gameObject.GetComponent<UIChoiceSetting>();
@@ -148,6 +178,34 @@ public class ChoiceManager : MonoBehaviour{
                     if (_obj.sprite == _choices._flagchoice_image[i]._option[0]) _UIcs.SetFlagAns(true);
                     else _UIcs.SetFlagAns(false);
                 }
+                //調換位置
+                int _ran = Random.Range(0, 3);
+                int except = _ran;
+                if (StepPanelIn == false) ImgPos[_ran].anchoredPosition = Img_baseV2[0];
+                else {ImgPos[_ran].anchoredPosition = Img_baseModV2[0];}
+
+                Img_ranV2[_ran] = Img_baseV2[0];
+                Img_ranModV2[_ran] = Img_baseModV2[0];
+                while (_ran == except) {_ran = Random.Range(0, 3);}
+                if (StepPanelIn == false) ImgPos[_ran].anchoredPosition = Img_baseV2[1];
+                else ImgPos[_ran].anchoredPosition = Img_baseModV2[1];
+
+                Img_ranV2[_ran] = Img_baseV2[1];
+                Img_ranModV2[_ran] = Img_baseModV2[1];
+                for (int _lastOne = 0; _lastOne < 3; _lastOne++) {
+                    if (_lastOne != _ran && _lastOne != except) {
+                        if (StepPanelIn == false) ImgPos[_lastOne].anchoredPosition = Img_baseV2[2];
+                        else ImgPos[_lastOne].anchoredPosition = Img_baseModV2[2];
+                        Img_ranV2[_lastOne] = Img_baseV2[2];
+                        Img_ranModV2[_lastOne] = Img_baseModV2[2];
+                        break;
+                    }
+                }
+                //StepPanel已在畫面內
+                //if (StepPanelIn == true) {
+                //    for (int k = 0; k < 3; k++) {ImgPos[i].anchoredPosition = Img_ranModV2[i];}
+                //}
+                CheckOnce = true;
                 AlreadyGet = true;
                 break;
             }
@@ -156,17 +214,39 @@ public class ChoiceManager : MonoBehaviour{
         for (int i = 0; i < _choices._flagchoice_video.Count && AlreadyGet == false; i++){
             if (_choices._flagchoice_video[i].FlagID == CurrentID){
                 VideoChoicePanel.SetActive(true);//開啟面板
+                CheckOnce = false;
                 int Count = 0;
                 foreach (RawImage _obj in _option_rawImg){
                     _UIcs = _obj.gameObject.GetComponent<UIChoiceSetting>();
                     _UIcs.SetFlagID(CurrentID);
                     _UIcs.SetChoiceVideo(_choices._flagchoice_video[i]._option[Count], _choices._flagchoice_video[i]._vp[Count]);
                     Count++;
-                    //for (int j = 0; j < _choices._flagchoice_video[i]._option.Count; j++) { _UIcs.SetChoiceVideo(_choices._flagchoice_video[i]._option[j], _choices._flagchoice_video[i]._vp[j]); }
-                    //_cs.SetOutlineEffect(true);
                     if (_obj.texture == _choices._flagchoice_video[i]._option[0]) _UIcs.SetFlagAns(true);
                     else _UIcs.SetFlagAns(false);
                 }
+                //調換位置
+                int _ran = Random.Range(0, 2);
+                if (_ran == 0) {
+                    VpPos[0].anchoredPosition = Vp_OX_baseV2[0];
+                    VpPos[1].anchoredPosition = Vp_OX_baseV2[1];
+                    Vp_OX_ranV2[0] = VpPos[0].anchoredPosition;
+                    Vp_OX_ranV2[1] = VpPos[1].anchoredPosition;
+                    Vp_OX_ranModV2[0] = Vp_OX_baseModV2[0];
+                    Vp_OX_ranModV2[1] = Vp_OX_baseModV2[1];
+                }
+                else if (_ran == 1) {
+                    VpPos[0].anchoredPosition = Vp_OX_baseV2[1];
+                    VpPos[1].anchoredPosition = Vp_OX_baseV2[0];
+                    Vp_OX_ranV2[0] = VpPos[0].anchoredPosition;
+                    Vp_OX_ranV2[1] = VpPos[1].anchoredPosition;
+                    Vp_OX_ranModV2[0] = Vp_OX_baseModV2[1];
+                    Vp_OX_ranModV2[1] = Vp_OX_baseModV2[0];
+                }
+                //StepPanel已在畫面內
+                if (StepPanelIn == true){
+                    for (int k = 0; k < 2; k++) { VpPos[i].anchoredPosition = Vp_OX_ranModV2[i]; }
+                }
+                CheckOnce = true;
                 AlreadyGet = true;
                 break;
             }
@@ -176,6 +256,7 @@ public class ChoiceManager : MonoBehaviour{
         for (int i = 0; i < _choices._flagchoice_OX.Count && AlreadyGet == false; i++){
             if (_choices._flagchoice_OX[i].FlagID == CurrentID){
                 OXChoicePanel.SetActive(true);//開啟面板
+                CheckOnce = false;
                 int Count = 0;
                 foreach (Image _obj in _option_OX){
                     _UIcs = _obj.gameObject.GetComponent<UIChoiceSetting>();
@@ -186,12 +267,22 @@ public class ChoiceManager : MonoBehaviour{
                     //_cs.SetOutlineEffect(true);
                     if (_obj.sprite == _choices._flagchoice_OX[i]._option[0]) _UIcs.SetFlagAns(true);
                     else _UIcs.SetFlagAns(false);
+                    OXPos[0].anchoredPosition = Vp_OX_baseV2[0];
+                    OXPos[1].anchoredPosition = Vp_OX_baseV2[1];
+                    Vp_OX_ranV2[0] = OXPos[0].anchoredPosition;
+                    Vp_OX_ranV2[1] = OXPos[1].anchoredPosition;
+                    Vp_OX_ranModV2[0] = Vp_OX_baseModV2[0];
+                    Vp_OX_ranModV2[1] = Vp_OX_baseModV2[1];
                 }
+                //StepPanel已在畫面內
+                if (StepPanelIn == true){
+                    for (int k = 0; k < 2; k++) { OXPos[i].anchoredPosition = Vp_OX_ranModV2[i]; }
+                }
+                CheckOnce = true;
                 AlreadyGet = true;
                 break;
             }
         }
-
     }
 
     public void CheckMatchChoice(int _choiceID,bool _choiceAns) {
@@ -207,6 +298,37 @@ public class ChoiceManager : MonoBehaviour{
         return total;
     }
 
+    public void StepPanelState(bool _state) {
+        StepPanelIn = _state;
+    }
+
+    //StepPanel進入時的UIChoice調整
+    void ImgChoiceState(bool _state) {
+        if (_state == true){
+            for (int i = 0; i < 3; i++) { ImgPos[i].anchoredPosition = Vector2.Lerp(ImgPos[i].anchoredPosition, Img_ranModV2[i], 0.48f); }
+        }
+        else {
+            for (int i = 0; i < 3; i++) { ImgPos[i].anchoredPosition = Vector2.Lerp(ImgPos[i].anchoredPosition, Img_ranV2[i], 0.48f); }
+        }
+    }
 
 
+    void VpChoiceState(bool _state){
+        if (CheckOnce == false) CheckOnce = true;
+        if (_state == true){
+            for (int i = 0; i < 2; i++) { VpPos[i].anchoredPosition = Vector2.Lerp(VpPos[i].anchoredPosition, Vp_OX_ranModV2[i], 0.48f); }
+        }
+        else{
+            for (int i = 0; i < 2; i++) { VpPos[i].anchoredPosition = Vector2.Lerp(VpPos[i].anchoredPosition, Vp_OX_ranV2[i], 0.48f); }
+        }
+    }
+
+    void OXChoiceState(bool _state){
+        if (_state == true){
+            for (int i = 0; i < 2; i++) { OXPos[i].anchoredPosition = Vector2.Lerp(OXPos[i].anchoredPosition, Vp_OX_ranModV2[i], 0.48f); }
+        }
+        else{
+            for (int i = 0; i < 2; i++) { OXPos[i].anchoredPosition = Vector2.Lerp(OXPos[i].anchoredPosition, Vp_OX_ranV2[i], 0.48f); }
+        }
+    }
 }

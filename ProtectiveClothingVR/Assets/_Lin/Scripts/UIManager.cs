@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour{
 
     //StepPanel宣告---Start
     Animator _stepPanelAnim;
+    ChoiceManager _choiceManager;
     //StepPanel宣告---End
 
     //StatPanel宣告---Start
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour{
     //IconBar & 下轄面板相關宣告---End
     void Awake(){
         _stepPanelAnim = GameObject.Find("StepPanel").GetComponent<Animator>();
+        _choiceManager = GameObject.Find("MissionManager").GetComponent<ChoiceManager>();
         StatPanel = GameObject.Find("StatPanel");
         Stat_UserID = GameObject.Find("Value_UserID").GetComponent<Text>();
         Stat_MissionType = GameObject.Find("Value_MissionType").GetComponent<Text>();
@@ -86,6 +88,7 @@ public class UIManager : MonoBehaviour{
 
     public void IO_StepPanel(){
         _showpanel[1] = !_showpanel[1];
+        _choiceManager.StepPanelState(_showpanel[1]);
         if (_showpanel[1] == true){_stepPanelAnim.Play("StepPanel_SlideIn");}
         else{_stepPanelAnim.Play("StepPanel_SlideOut");}
     }

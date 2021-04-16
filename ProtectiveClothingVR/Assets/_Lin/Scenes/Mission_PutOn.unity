@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1347,6 +1347,23 @@ MonoBehaviour:
   _option_OX:
   - {fileID: 1138290531}
   - {fileID: 1898750778}
+  ImgPos:
+  - {fileID: 1700033772}
+  - {fileID: 99291696}
+  - {fileID: 795445565}
+  VpPos:
+  - {fileID: 781857697}
+  - {fileID: 707270167}
+  OXPos:
+  - {fileID: 1138290530}
+  - {fileID: 1898750777}
+  Img_baseModV2:
+  - {x: -600, y: 200}
+  - {x: 0, y: 200}
+  - {x: -300, y: -200}
+  Vp_OX_baseModV2:
+  - {x: -400, y: 200}
+  - {x: -400, y: -200}
 --- !u!114 &172686536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8316,7 +8333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -600, y: 0}
+  m_AnchoredPosition: {x: -400, y: 0}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1138290531
@@ -12375,7 +12392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 600, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1898750778
