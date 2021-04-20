@@ -72,7 +72,7 @@ namespace Valve.VR.InteractionSystem
 
 				if ( highlight )
 				{
-					//areaMesh.material = Teleport.instance.areaHighlightedMaterial;
+					areaMesh.material = Teleport.instance.areaHighlightedMaterial;
 				}
 				else
 				{
@@ -96,7 +96,7 @@ namespace Valve.VR.InteractionSystem
 		{
 			if ( locked )
 			{
-				//areaMesh.material = Teleport.instance.areaLockedMaterial;
+				areaMesh.material = Teleport.instance.areaLockedMaterial;
 			}
 			else
 			{
@@ -115,7 +115,7 @@ namespace Valve.VR.InteractionSystem
 
 			if ( locked )
 			{
-				//areaMesh.sharedMaterial = Teleport.instance.areaLockedMaterial;
+				areaMesh.sharedMaterial = Teleport.instance.areaLockedMaterial;
 			}
 			else
 			{
