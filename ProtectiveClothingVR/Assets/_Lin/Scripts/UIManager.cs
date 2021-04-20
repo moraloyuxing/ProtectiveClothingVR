@@ -11,9 +11,10 @@ public class UIManager : MonoBehaviour{
 
     //SettingPanel宣告---Start
     private GameObject SettingPanel;
+    private GameObject WarningPanel;
     private MusicManager _musicmanager;
     public Text[] _volumeText;
-    private bool[] _showpanel =new bool[3]; //0為SettingPanel；1為StepPanel；2為StatPanel
+    private bool[] _showpanel =new bool[4]; //0為SettingPanel；1為StepPanel；2為StatPanel ； 3為WarningPanel
     private bool[] _latestVolumeState;
     public Button[] _volumeModifyBtn;
     public Image[] _volumeIOBtn;
@@ -47,6 +48,8 @@ public class UIManager : MonoBehaviour{
         StatPanel.SetActive(false);
         SettingPanel = GameObject.Find("SettingPanel");
         SettingPanel.SetActive(false);
+        WarningPanel = GameObject.Find("WarningPanel");
+        WarningPanel.SetActive(false);
         _musicmanager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         _latestVolumeState = new bool[_volumeText.Length];
         for (int i = 0; i < _latestVolumeState.Length; i++) _latestVolumeState[i] = true;
@@ -78,7 +81,7 @@ public class UIManager : MonoBehaviour{
         _showpanel[0] = !_showpanel[0];
         if (_showpanel[0] == true){
             SettingPanel.SetActive(true);
-            for (int i = 0; i < _Iconbar.Length; i++) if (i != 0) _Iconbar[i].interactable = false;
+            for (int i = 0; i < _Iconbar.Length; i++) /*if (i != 0) */_Iconbar[i].interactable = false;
         }
         else{
             SettingPanel.SetActive(false);
@@ -97,13 +100,19 @@ public class UIManager : MonoBehaviour{
         _showpanel[2] = !_showpanel[2];
         if (_showpanel[2] == true){
             StatPanel.SetActive(true);
-            for (int i = 0; i < _Iconbar.Length; i++) if (i != 2) _Iconbar[i].interactable = false;
+            for (int i = 0; i < _Iconbar.Length; i++)/* if (i != 2)*/ _Iconbar[i].interactable = false;
         }
         else{
             StatPanel.SetActive(false);
             for (int i = 0; i < _Iconbar.Length; i++) _Iconbar[i].interactable = true;
         }
     }
+
+    public void IO_WarningPanel() {
+        _showpanel[3] = !_showpanel[3];
+        WarningPanel.SetActive(_showpanel[3]);
+    }
+
     //IconBar宣告---End
 
     //SettingPanel宣告---Start
