@@ -90,13 +90,11 @@ public class ChoiceManager : MonoBehaviour{
     }
 
     void Update(){
-        if (CheckOnce == true)
-        {
+        if (CheckOnce == true){
             if (ImageChoicePanel.activeInHierarchy == true) { ImgChoiceState(StepPanelIn); }
             else if (VideoChoicePanel.activeInHierarchy == true) { VpChoiceState(StepPanelIn); }
             else if (OXChoicePanel.activeInHierarchy == true) { OXChoiceState(StepPanelIn); }
         }
-        else Debug.Log("wait");
     }
 
     public void SetGlowChoice(int _ID){
