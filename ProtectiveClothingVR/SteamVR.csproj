@@ -454,11 +454,11 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.NRefactory">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/PackageCache/com.unity.render-pipelines.core@7.5.1/Editor/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>
-    </Reference>
     <Reference Include="Valve.Newtonsoft.Json">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Assets/SteamVR/Input/Plugins/JSON.NET/Valve.Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/PackageCache/com.unity.render-pipelines.core@7.5.1/Editor/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Unity_Version/Unity2019/Unity_4.6/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -811,11 +811,11 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>C:/Users/USER/Desktop/Unity_git/ProtectiveClothingVR/ProtectiveClothingVR/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
