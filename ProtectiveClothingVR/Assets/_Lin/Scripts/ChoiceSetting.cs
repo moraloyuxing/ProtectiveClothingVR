@@ -10,11 +10,15 @@ public class ChoiceSetting : MonoBehaviour{
     public int FlagID = 0;
     MeshRenderer _mat;
 
+    Vector3 mOffset;
+    float mZcoord;
+
     void Awake(){
         _outlineEffect = GetComponent<Outline>();
         _outlineEffect.enabled = false;
         _choiceManager = GameObject.Find("MissionManager").GetComponent<ChoiceManager>();
         _mat = GetComponent<MeshRenderer>();
+        mZcoord = Camera.main.WorldToScreenPoint(transform.position).z;
     }
 
     void Update(){
@@ -48,7 +52,35 @@ public class ChoiceSetting : MonoBehaviour{
 
     //測試
     void OnMouseDown(){
-        _choiceManager.CheckMatchChoice(FlagID,FlagAns);
+        //_choiceManager.CheckMatchChoice(FlagID,FlagAns);
+        if (FlagAns == false) _choiceManager.CheckMatchChoice(FlagID, FlagAns);
+        else {
+            //觸發TriggerZone
+            Debug.Log("this?");
+            _choiceManager.IO_TriggerZone(FlagID,true);
+        }
+        mOffset = gameObject.transform.position - GetMouseWorldPos();
+    }
+
+    void OnMouseDrag(){
+        transform.position = GetMouseWorldPos() + mOffset;
+    }
+
+    void OnMouseUp(){
+        _choiceManager.IO_TriggerZone(FlagID, false);
+    }
+
+    Vector3 GetMouseWorldPos() {
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = mZcoord;
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
+    void OnTriggerEnter(Collider other){
+        if (other.tag == "TriggerZone" && FlagAns == true) {
+            _choiceManager.SetTriggerZoneCounter();
+            other.gameObject.SetActive(false);
+        }
     }
 
 }

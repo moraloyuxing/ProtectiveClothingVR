@@ -41,6 +41,7 @@ public class UIChoiceSetting : MonoBehaviour,IPointerClickHandler,IPointerEnterH
 
     public void SetFlagID(int _ID){
         FlagID = _ID;
+        Debug.Log("test");
     }
 
     public void SetChoiceSprite(Sprite _sprite) {

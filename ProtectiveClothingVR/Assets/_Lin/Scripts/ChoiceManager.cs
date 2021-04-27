@@ -45,6 +45,12 @@ public class AllChoice{
     public List<FlagChoice_OX> _flagchoice_OX = new List<FlagChoice_OX>();
 }
 
+[System.Serializable]
+public class ChoiceTriggerZone {
+    public int MissionNumber;
+    public List<GameObject> _triggerZone = new List<GameObject>();
+}
+
 public class ChoiceManager : MonoBehaviour{
 
     public AllChoice _choices;
@@ -75,6 +81,11 @@ public class ChoiceManager : MonoBehaviour{
     bool StepPanelIn = false;
     bool CheckOnce = false;
 
+    public List<ChoiceTriggerZone> _zone = new List<ChoiceTriggerZone>();
+    ChoiceTriggerZone _matchOne;
+    ChoiceSetting _LastoneAns;
+    int TriggerZoneCounter = 0;
+
     void Start(){
         _stepManager = GetComponent<StepManager>();
         ImageChoicePanel = GameObject.Find("ImageChoicePanel");
@@ -87,6 +98,14 @@ public class ChoiceManager : MonoBehaviour{
         ImageChoicePanel.SetActive(false);
         VideoChoicePanel.SetActive(false);
         OXChoicePanel.SetActive(false);
+
+        for (int i = 0; i < _choices._flagchoice_base.Count; i++) {
+            for (int j = 0; j < _choices._flagchoice_base[i]._option.Count; j++) {
+                _choices._flagchoice_base[i]._option[j].GetComponent<ChoiceSetting>().SetFlagID(_choices._flagchoice_base[i].FlagID);
+            }
+        }
+
+
     }
 
     void Update(){
@@ -104,7 +123,7 @@ public class ChoiceManager : MonoBehaviour{
             for (int i = 0; i < _choices._flagchoice_base.Count && AlreadyGet == false; i++){
                 if (_choices._flagchoice_base[i].FlagID == CurrentID){
                     foreach (GameObject _obj in _choices._flagchoice_base[i]._option){_obj.GetComponent<ChoiceSetting>().SetOutlineEffect(false);}
-                    _choices._flagchoice_base.Remove(_choices._flagchoice_base[i]); /*前一個flag資料從list移除*/
+                    //_choices._flagchoice_base.Remove(_choices._flagchoice_base[i]); /*前一個flag資料從list移除*/ /*視情況是否恢復*/
                     AlreadyGet = true;
                     break;
                 }
@@ -155,7 +174,10 @@ public class ChoiceManager : MonoBehaviour{
                     _cs = _obj.GetComponent<ChoiceSetting>();
                     _cs.SetFlagID(CurrentID);
                     _cs.SetOutlineEffect(true);
-                    if (_obj == _choices._flagchoice_base[i]._option[0]) _cs.SetFlagAns(true);
+                    if (_obj == _choices._flagchoice_base[i]._option[0]) {
+                        _cs.SetFlagAns(true);
+                        _LastoneAns = _cs;
+                    } 
                     else _cs.SetFlagAns(false);
                 }
                 AlreadyGet = true;
@@ -288,7 +310,32 @@ public class ChoiceManager : MonoBehaviour{
             if (_choiceAns) { _stepManager.FlagCorrect(); } //步驟內的選項正確
             else { _stepManager.FlagWrong(); }  //步驟內的選項錯誤
         }
-        else { _stepManager.StepWrong();}
+        else {_stepManager.StepWrong();}
+    }
+
+    public void SetTriggerZoneCounter() {
+        TriggerZoneCounter++;
+        if (TriggerZoneCounter == _matchOne._triggerZone.Count) {
+            TriggerZoneCounter = 0;
+            _LastoneAns.SetFlagAns(false);
+            CheckMatchChoice(CurrentID, true);
+        }
+    }
+
+    public void IO_TriggerZone(int _choiceID,bool _state) {
+        if (_choiceID == CurrentID) {
+            bool HaveTriggerZone = false;
+            for (int i = 0; i < _zone.Count; i++){
+                if (_choiceID == _zone[i].MissionNumber){
+                    _matchOne = _zone[i];
+                    HaveTriggerZone = true;
+                    break;
+                }
+            }
+            if (HaveTriggerZone == true){
+                for (int k = 0; k < _matchOne._triggerZone.Count; k++) _matchOne._triggerZone[k].SetActive(_state);
+            }
+        }
     }
 
     public int GetFlagCount() {
